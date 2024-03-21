@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { Requestcontainer } from '../requestContainer/Requestcontainer';
 import { Taskcounter } from '../taskCounter/Taskcounter';
 import './Dashboard.css';
@@ -6,7 +8,7 @@ import axios from '../../../api/axios.js';
 import { useEffect, useState } from 'react';
 const REQUEST_URL = '/request';
 
-export const Dashboard = () => {
+export const Dashboard = ({ isOnMobile }) => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <Taskcounter requests={requests} />
+      <Taskcounter requests={requests} isOnMobile={isOnMobile} />
       <Requestcontainer requests={requests} />
     </div>
   );

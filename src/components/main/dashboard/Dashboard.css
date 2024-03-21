@@ -35,13 +35,13 @@
 }
 
 .counter-container p {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     color: gray;
 }
 
 .count-number {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
 }
 
@@ -72,6 +72,7 @@
 
 .title p {
     color: #f0bf0f;
+    font-size: 14px;
     margin-top: 10px;
 }
 
@@ -94,7 +95,7 @@
     margin-left: 7px;
     background-color: #f9fbff;
     border-style: none;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .search input:focus {
@@ -116,7 +117,7 @@
     margin-left: 7px;
     background-color: #f9fbff;
     border-style: none;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .sort select:focus {
@@ -127,7 +128,7 @@
 .sort option {
     border: 0;
     padding: 59999px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 10px;
 }
 
@@ -142,7 +143,7 @@
 
 .table-list thead {
     font-weight: 200 !important;
-    font-size: 15px;
+    font-size: 14px;
     color: rgb(158, 157, 157);
 }
 
@@ -200,7 +201,7 @@ td {
     display: flex;
     justify-content: center;
     min-width: 35px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -215,7 +216,7 @@ td {
     display: flex;
     justify-content: center;
     min-width: 35px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;

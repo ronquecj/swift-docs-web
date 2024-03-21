@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
+
 import { Dashboard } from './dashboard/Dashboard';
 import './Main.css';
 
-export const Main = () => {
+export const Main = ({ isOnMobile }) => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const username = currentUser.user.username
 
@@ -10,9 +12,11 @@ export const Main = () => {
     .join('');
 
   return (
-    <main>
+    <main
+      style={isOnMobile ? { padding: '20px', width: '100%' } : {}}
+    >
       <h1 className="greetings">Hello {username}!</h1>
-      <Dashboard />
+      <Dashboard isOnMobile={isOnMobile} />
     </main>
   );
 };
