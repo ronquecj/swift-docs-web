@@ -1,0 +1,62 @@
+import './Navbar.css';
+
+export const Navbar = () => {
+  return (
+    <nav>
+      <div className="sd">
+        <img
+          src="temp-icon.png"
+          alt="swift-docs-icon"
+          width={'30px'}
+        />
+        <h1 className="app-name">
+          Swift Docs <span>v.01</span>
+        </h1>
+      </div>
+
+      <div className="dash-tab">
+        <div className="tab">
+          <img
+            width="25"
+            height="25"
+            src="https://img.icons8.com/parakeet-line/48/ffffff/name.png"
+            alt="name"
+          />
+          <div>
+            <p>Dashboard</p>
+            <img
+              width="12"
+              height="12"
+              src="https://img.icons8.com/metro/26/ffffff/forward.png"
+              alt="forward"
+            />
+          </div>
+        </div>
+        <div className="profile-tab">
+          <img
+            src="profile-pic.jpg"
+            alt="profile-pic"
+            style={{
+              borderRadius: '50%',
+              objectFit: 'cover',
+              width: '40px',
+              height: '40px',
+            }}
+          />
+          <div className="profile-right">
+            <div className="profile-info">
+              <p className="role">Admin</p>
+              <p className="sub-role">Secretary</p>
+            </div>
+            <img
+              width="12"
+              height="12"
+              src="https://img.icons8.com/metro/26/808080/expand-arrow.png"
+              alt="expand-arrow"
+            />
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
