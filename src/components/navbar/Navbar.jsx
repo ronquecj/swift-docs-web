@@ -1,6 +1,14 @@
 import './Navbar.css';
 
 export const Navbar = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const id =
+    currentUser.user._id.slice(0, 5) +
+    '************' +
+    currentUser.user._id.slice(
+      20,
+      currentUser.user._id.split('').length - 1
+    );
   return (
     <nav>
       <div className="sd">
@@ -46,7 +54,7 @@ export const Navbar = () => {
           <div className="profile-right">
             <div className="profile-info">
               <p className="role">Admin</p>
-              <p className="sub-role">Secretary</p>
+              <p className="sub-role">{id}</p>
             </div>
             <img
               width="12"

@@ -1,26 +1,38 @@
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import axios from '../../api/axios.js';
-import { useState } from 'react';
 const LOGIN_URL = 'auth/admin/login';
 
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       const response = await axios.post(LOGIN_URL, {
         username,
         password,
       });
 
+      localStorage.setItem(
+        'currentUser',
+        JSON.stringify(response?.data)
+      );
+
       console.log(response?.data);
+
+      if (response.status === 200) navigate('/dashboard');
     } catch (err) {
       console.error(err.response.data.msg);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -45,7 +57,13 @@ export const Login = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Login</button>
+            {isLoading ? (
+              <div className="loader">
+                <div className="line-wobble"></div>
+              </div>
+            ) : (
+              <button>Login</button>
+            )}
             <p>
               {`Don't`} have an account yet? Sign up{' '}
               <Link to={'/signup'}>

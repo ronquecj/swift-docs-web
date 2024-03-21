@@ -1,7 +1,29 @@
 import './Signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+import axios from '../../api/axios.js';
+const REGISTER_URL = 'auth/admin/register';
 
 export const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(REGISTER_URL, {
+        username,
+        password,
+      });
+
+      if (response.status === 201) navigate('/login');
+    } catch (err) {
+      console.error(err.response.data.msg);
+    }
+  };
   return (
     <div className="login-container">
       <div className="login">
@@ -12,16 +34,23 @@ export const Signup = () => {
             height={'300px'}
             style={{ marginRight: '120px' }}
           />
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <h1>Sign up</h1>
             <label htmlFor="">Username</label>
             <input
               type="text"
               name="username"
               placeholder="randomuser"
+              required
+              onChange={(e) => setUsername(e.target.value)}
             />
             <label htmlFor="">Password</label>
-            <input type="password" name="username" />
+            <input
+              type="password"
+              name="username"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button>Create account</button>
             <p>
               Already have an account? Login{' '}
