@@ -28,7 +28,7 @@ export const Dashboard = () => {
   return (
     <div className="dashboard">
       <Taskcounter requests={requests} />
-      <Requestcontainer />
+      <Requestcontainer requests={requests} />
     </div>
   );
 };

@@ -1,4 +1,8 @@
-export const Requestcontainer = () => {
+/* eslint-disable react/prop-types */
+
+import { TableList } from '../../tableList/Tablelist';
+
+export const Requestcontainer = ({ requests }) => {
   return (
     <div className="request-container">
       <div className="title-form-container">
@@ -26,93 +30,10 @@ export const Requestcontainer = () => {
         </form>
       </div>
       <div className="bot-dash">
-        <table className="table-list">
-          <thead>
-            <tr>
-              <th className="haha">Name</th>
-              <th className="haha">Type</th>
-              <th className="haha">Purpose</th>
-              <th className="haha">Email</th>
-              <th className="haha">Phone Number</th>
-              <th className="haha">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="pending">Pending</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="pending">Pending</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="pending">Pending</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="approved">Approved</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="approved">Approved</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="approved">Approved</span>
-              </td>
-            </tr>
-            <tr className="list-content">
-              <td>Jamalish Crack</td>
-              <td>Brangay Clearance</td>
-              <td>Educational Assistancec</td>
-              <td>nice@yahoo.com</td>
-              <td>092392039</td>
-              <td>
-                <span className="approved">Approved</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <TableList requests={requests} />
         <div className="pagination">
           <div className="pagination-status">
-            <p>Showing data X to X of X entries</p>
+            <p>Showing data 1 to 8 of {requests.length} entries</p>
           </div>
           <div className="current-page">
             <button>

@@ -10,6 +10,7 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,11 +27,11 @@ export const Login = () => {
         JSON.stringify(response?.data)
       );
 
-      console.log(response?.data);
-
-      if (response.status === 200) navigate('/dashboard');
+      if (response.status === 200) {
+        navigate('/dashboard');
+      }
     } catch (err) {
-      console.error(err.response.data.msg);
+      setErrorMessage(err.response.data.msg);
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +50,11 @@ export const Login = () => {
               placeholder="randomuser"
               required
               onChange={(e) => setUsername(e.target.value)}
+              style={
+                errorMessage !== ''
+                  ? { border: '.5px solid #b3261e' }
+                  : {}
+              }
             />
             <label htmlFor="password">Password</label>
             <input
@@ -56,7 +62,18 @@ export const Login = () => {
               name="username"
               required
               onChange={(e) => setPassword(e.target.value)}
+              style={
+                errorMessage !== ''
+                  ? {
+                      border: '.5px solid #b3261e',
+                      marginBottom: '0',
+                    }
+                  : {}
+              }
             />
+            {errorMessage && (
+              <p style={{ color: '#b3261e' }}>{errorMessage}</p>
+            )}
             {isLoading ? (
               <div className="loader">
                 <div className="line-wobble"></div>

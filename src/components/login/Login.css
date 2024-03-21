@@ -25,6 +25,7 @@
     background-color: white;
     padding: 25px;
     border-radius: 20px;
+    /* border: 1px solid #ae1313; */
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -53,6 +54,16 @@
     color: white;
     background-color: black;
     border-radius: 5px;
+}
+
+.login-form button:hover {
+    cursor: pointer;
+    background-color: rgb(36, 36, 36);
+}
+
+.login-form button:active {
+    color: black;
+    background-color: rgb(193, 193, 193);
 }
 
 .login-form p {

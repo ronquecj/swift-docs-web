@@ -9,11 +9,13 @@ export const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       const response = await axios.post(REGISTER_URL, {
         username,
         password,
@@ -22,6 +24,8 @@ export const Signup = () => {
       if (response.status === 201) navigate('/login');
     } catch (err) {
       console.error(err.response.data.msg);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -51,7 +55,13 @@ export const Signup = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Create account</button>
+            {isLoading ? (
+              <div className="loader">
+                <div className="line-wobble"></div>
+              </div>
+            ) : (
+              <button>Create Account</button>
+            )}
             <p>
               Already have an account? Login{' '}
               <Link to={'/login'}>
