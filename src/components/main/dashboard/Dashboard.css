@@ -137,8 +137,30 @@
     text-align: left;
 }
 
+
 .list-content td {
     border-bottom: .5px solid rgb(236, 236, 236);
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    color: gray;
+    font-weight: 400;
+    transition: all .25s;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+tbody tr:active {
+    cursor: pointer;
+    color: rgb(218, 218, 218);
 }
 
 .table-list thead {
@@ -148,13 +170,13 @@
 }
 
 .haha {
-    font-weight: 500;
+    font-weight: 600;
     border-bottom: .5px solid rgb(236, 236, 236);
     padding: 15px 0;
+    color: black;
 }
 
 td {
-    font-weight: 500;
     padding: 15px 0;
 }
 

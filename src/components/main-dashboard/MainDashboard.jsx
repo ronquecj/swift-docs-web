@@ -26,7 +26,6 @@ export const MainDashboard = () => {
       window.removeEventListener('resize', setDimension);
     };
   }, [screenSize]);
-  console.log(width);
 
   return (
     <div

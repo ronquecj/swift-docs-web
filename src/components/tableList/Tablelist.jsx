@@ -15,7 +15,7 @@ export const TableList = ({ requests }) => {
           <th className="haha">Status</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="table-list-body">
         {requests.slice(0, 8).map((request) => (
           <List key={request._id} request={request} />
         ))}
