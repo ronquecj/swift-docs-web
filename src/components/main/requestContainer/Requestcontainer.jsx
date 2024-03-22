@@ -1,53 +1,66 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TableList } from '../../tableList/Tablelist';
 
 export const Requestcontainer = ({ requests }) => {
-  const [selected, setSelected] = useState('newest');
+  const [selected, setSelected] = useState('oldest');
   const [selectedRequests, setSelectedRequests] = useState(null);
+  const [search, setSearch] = useState('');
   const totalRequestCount = requests.length;
 
-  let convertedCreatedAt = requests.map((req) => {
+  useEffect(() => {
+    let fullNameCopy = requests.slice().map((req) => {
+      return {
+        ...req,
+        fullName: `${req.userData.firstName
+          .split('')
+          .map((c) => c.toLowerCase())
+          .join('')} ${req.userData.lastName
+          .split('')
+          .map((c) => c.toLowerCase())
+          .join('')}`,
+      };
+    });
+    console.log(fullNameCopy);
+    const searchName = (names) => {
+      if (search === '') setSelectedRequests(null);
+      if (search != '')
+        setSelectedRequests(
+          names.filter((name) => name.fullName == search)
+        );
+    };
+    searchName(fullNameCopy);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
+  let convertedCreatedAt = requests.slice().map((req) => {
     return {
       ...req,
       conCreatedAt: dateToSeconds(req?.createdAt?.split('T')),
     };
   });
 
-  const oldestRequest = convertedCreatedAt
-    .slice()
-    .sort((a, b) =>
-      a.conCreatedAt < b.conCreatedAt
-        ? 1
-        : a.conCreatedAt > b.conCreatedAt
-        ? -1
-        : 0
-    );
-
   const newestRequest = convertedCreatedAt
     .slice()
-    .sort((a, b) =>
-      a.conCreatedAt < b.conCreatedAt
-        ? -1
-        : a.conCreatedAt > b.conCreatedAt
-        ? 1
-        : 0
-    );
+    .sort((a, b) => b.conCreatedAt - a.conCreatedAt);
 
-  console.log(selectedRequests);
+  const oldestRequest = convertedCreatedAt
+    .slice()
+    .sort((a, b) => a.conCreatedAt - b.conCreatedAt);
+
+  console.log(search);
 
   const handleSelect = (e) => {
     setSelected(e?.target?.value);
-    switch (selected) {
+
+    switch (e?.target?.value) {
       case 'newest':
         setSelectedRequests(newestRequest);
         break;
       case 'oldest':
         setSelectedRequests(oldestRequest);
         break;
-      default:
-        setSelectedRequests(requests);
     }
   };
 
@@ -67,7 +80,7 @@ export const Requestcontainer = ({ requests }) => {
                       ind == 0 ? (n == '0' ? '' : n) : n
                     )
                 ) * 2629746
-              : Number(date) * 86400
+              : Number(date) * 8640 - 0
           )
           .reduce((acc, i) => acc + i),
 
@@ -101,7 +114,12 @@ export const Requestcontainer = ({ requests }) => {
               src="https://img.icons8.com/ios-glyphs/30/7e7e7e/search--v1.png"
               alt="search--v1"
             />
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
           </div>
           <div className="sort">
             <span>Sort by: </span>
