@@ -2,7 +2,7 @@
 
 import { List } from '../list/List';
 
-export const TableList = ({ requests }) => {
+export const TableList = ({ requests, onEditRequest }) => {
   return (
     <table className="table-list">
       <thead>
@@ -17,7 +17,11 @@ export const TableList = ({ requests }) => {
       </thead>
       <tbody className="table-list-body">
         {requests.slice(0, 8).map((request) => (
-          <List key={request._id} request={request} />
+          <List
+            key={request._id}
+            request={request}
+            onEditRequest={onEditRequest}
+          />
         ))}
       </tbody>
     </table>

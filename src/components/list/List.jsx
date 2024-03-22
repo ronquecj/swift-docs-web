@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 
-export const List = ({ request }) => {
+export const List = ({ request, onEditRequest }) => {
   const fullName = `${request.userData.firstName} ${request.userData.lastName}`;
   return (
-    <tr className="list-content">
+    <tr
+      className="list-content"
+      onClick={() => onEditRequest(request)}
+    >
       <td>{fullName}</td>
       <td>{request.type}</td>
       <td>{request.purpose}</td>

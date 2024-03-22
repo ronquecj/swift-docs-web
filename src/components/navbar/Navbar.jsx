@@ -57,10 +57,10 @@ export const Navbar = () => {
               <p className="sub-role">{id}</p>
             </div>
             <img
-              width="12"
-              height="12"
-              src="https://img.icons8.com/metro/26/808080/expand-arrow.png"
-              alt="expand-arrow"
+              width="25"
+              height="25"
+              src="https://img.icons8.com/fluency-systems-filled/48/exit.png"
+              alt="exit"
             />
           </div>
         </div>

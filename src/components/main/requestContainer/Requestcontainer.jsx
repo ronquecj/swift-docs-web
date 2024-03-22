@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { TableList } from '../../tableList/Tablelist';
 
-export const Requestcontainer = ({ requests }) => {
+export const Requestcontainer = ({ requests, onEditRequest }) => {
   const [selected, setSelected] = useState('oldest');
   const [selectedRequests, setSelectedRequests] = useState(null);
   const [search, setSearch] = useState('');
@@ -22,7 +22,7 @@ export const Requestcontainer = ({ requests }) => {
           .join('')}`,
       };
     });
-    console.log(fullNameCopy);
+
     const searchName = (names) => {
       if (search === '') setSelectedRequests(null);
       if (search != '')
@@ -48,8 +48,6 @@ export const Requestcontainer = ({ requests }) => {
   const oldestRequest = convertedCreatedAt
     .slice()
     .sort((a, b) => a.conCreatedAt - b.conCreatedAt);
-
-  console.log(search);
 
   const handleSelect = (e) => {
     setSelected(e?.target?.value);
@@ -140,6 +138,7 @@ export const Requestcontainer = ({ requests }) => {
           requests={
             selectedRequests == null ? requests : selectedRequests
           }
+          onEditRequest={onEditRequest}
         />
         <div className="pagination">
           <div className="pagination-status">

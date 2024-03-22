@@ -1,16 +1,23 @@
 /* eslint-disable react/prop-types */
 
-// import { Requestcontainer } from '../requestContainer/Requestcontainer';
+import { Requestcontainer } from '../requestContainer/Requestcontainer';
 import { Taskcounter } from '../taskCounter/Taskcounter';
+import { EditRequestContainer } from '../editRequestContainer/EditRequestContainer.jsx';
 import './Dashboard.css';
 
 import axios from '../../../api/axios.js';
 import { useEffect, useState } from 'react';
-import { EditRequestContainer } from '../editRequestContainer/EditRequestContainer.jsx';
 const REQUEST_URL = '/request';
 
 export const Dashboard = ({ isOnMobile }) => {
   const [requests, setRequests] = useState([]);
+  const [editRequest, setEditRequest] = useState(false);
+  const [currentRequest, setCurrentRequest] = useState(null);
+
+  const handleOnEditRequest = (request) => {
+    setEditRequest((editRequest) => !editRequest);
+    setCurrentRequest(request);
+  };
 
   useEffect(() => {
     const fetchAllRequest = async () => {
@@ -31,8 +38,17 @@ export const Dashboard = ({ isOnMobile }) => {
   return (
     <div className="dashboard">
       <Taskcounter requests={requests} isOnMobile={isOnMobile} />
-      {/* <Requestcontainer requests={requests} /> */}
-      <EditRequestContainer />
+      {editRequest ? (
+        <EditRequestContainer
+          onEditRequest={handleOnEditRequest}
+          currentRequest={currentRequest}
+        />
+      ) : (
+        <Requestcontainer
+          requests={requests}
+          onEditRequest={handleOnEditRequest}
+        />
+      )}
     </div>
   );
 };
