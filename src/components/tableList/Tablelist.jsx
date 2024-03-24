@@ -2,7 +2,11 @@
 
 import { List } from '../list/List';
 
-export const TableList = ({ requests, onEditRequest }) => {
+export const TableList = ({
+  currentContent,
+  requests,
+  onEditRequest,
+}) => {
   return (
     <table className="table-list">
       <thead>
@@ -16,13 +20,18 @@ export const TableList = ({ requests, onEditRequest }) => {
         </tr>
       </thead>
       <tbody className="table-list-body">
-        {requests.slice(0, 8).map((request) => (
-          <List
-            key={request._id}
-            request={request}
-            onEditRequest={onEditRequest}
-          />
-        ))}
+        {requests
+          .slice(
+            currentContent == 0 ? 0 : currentContent * 8,
+            currentContent * 8 + 8
+          )
+          .map((request) => (
+            <List
+              key={request._id}
+              request={request}
+              onEditRequest={onEditRequest}
+            />
+          ))}
       </tbody>
     </table>
   );

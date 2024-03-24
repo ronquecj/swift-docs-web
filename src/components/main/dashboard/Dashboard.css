@@ -234,6 +234,44 @@ td {
     min-width: 35px;
 }
 
+
+.pagination-status {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(179, 179, 179);
+}
+
+.current-page {
+    display: flex;
+    list-style: none;
+}
+
+.current-page button:hover {
+    cursor: pointer;
+    background-color: rgb(233, 233, 233);
+}
+
+.pages {
+    display: flex;
+    justify-content: center;
+    min-width: 35px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #eeeeee;
+    padding: 8px 10px;
+    border-radius: 7px;
+    min-width: 35px;
+}
+
+.pages:hover {
+    cursor: pointer;
+}
+
 .active-page {
     display: flex;
     justify-content: center;
@@ -249,10 +287,7 @@ td {
     border-radius: 7px;
 }
 
-.pagination-status {
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    font-size: 14px;
-    color: rgb(179, 179, 179);
+.next:hover,
+.prev:hover {
+    cursor: pointer;
 }

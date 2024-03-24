@@ -30,7 +30,7 @@ export const Dashboard = ({ isOnMobile }) => {
         const response = await axios.get(REQUEST_URL);
         const data = response.data;
 
-        setRequests(data);
+        setRequests(() => [...data]);
       } catch (err) {
         console.error(err);
       }

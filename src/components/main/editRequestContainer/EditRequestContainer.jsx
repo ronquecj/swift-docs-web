@@ -128,107 +128,9 @@ export const EditRequestContainer = ({
     }
   };
 
-  // const printFile = async () => {
-  //   const date = new Date().toDateString();
-  //   const day = date.split(' ')[2];
-  //   const monthYear = [date.split(' ')[1], date.split(' ')[3]].join(
-  //     ' '
-  //   );
-
-  //   try {
-  //     const response = await fetch(`${requestType}.docx`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to load file');
-  //     }
-
-  //     const fileBuffer = await response.arrayBuffer();
-
-  //     const doc = await patchDocument(fileBuffer, {
-  //       patches: {
-  //         NAME: {
-  //           type: PatchType.PARAGRAPH,
-  //           children: [
-  //             new TextRun({
-  //               text: `${currentRequest.userData.firstName} ${currentRequest.userData.lastName}`,
-  //               size: 27,
-  //               bold: true,
-  //               underline: {
-  //                 type: UnderlineType.SINGLE,
-  //                 color: '000000',
-  //               },
-  //             }),
-  //           ],
-  //         },
-  //         PURP: {
-  //           type: PatchType.PARAGRAPH,
-  //           children: [
-  //             new TextRun({
-  //               text: currentRequest.purpose,
-  //               size: 27,
-  //               bold: true,
-  //               underline: {
-  //                 type: UnderlineType.SINGLE,
-  //                 color: '000000',
-  //               },
-  //             }),
-  //           ],
-  //         },
-  //         DAY: {
-  //           type: PatchType.ParagraphChild,
-  //           children: [
-  //             new TextRun({
-  //               text: day,
-  //               size: 27,
-  //             }),
-  //           ],
-  //         },
-  //         CURRENT_DATE: {
-  //           type: PatchType.PARAGRAPH,
-  //           children: [
-  //             new TextRun({
-  //               text: monthYear,
-  //               size: 27,
-  //               bold: true,
-  //               underline: {
-  //                 type: UnderlineType.SINGLE,
-  //                 color: '000000',
-  //               },
-  //             }),
-  //           ],
-  //         },
-  //       },
-  //     });
-
-  //     const blob = new Blob([doc], {
-  //       type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  //     });
-
-  //     const url = URL.createObjectURL(blob);
-  //     const newWindow = window.open(url, '_blank');
-
-  //     if (newWindow) {
-  //       newWindow.onload = () => {
-  //         newWindow.print();
-  //         newWindow.onafterprint = () => {
-  //           newWindow.close();
-  //           URL.revokeObjectURL(url);
-  //         };
-  //       };
-  //     } else {
-  //       throw new Error('Failed to open new window');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-
   const handleOnClick = () => {
     downloadFile();
   };
-
-  // const handlePrint = () => {
-  //   printFile();
-  // };
 
   return (
     <div className="edit-container">
@@ -275,7 +177,7 @@ export const EditRequestContainer = ({
               <>
                 <button className="download" onClick={handleOnClick}>
                   Download
-                </button>{' '}
+                </button>
                 {/* <button className="print" onClick={handlePrint}>
                   Print
                 </button> */}

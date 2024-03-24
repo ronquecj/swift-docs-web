@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { TableList } from '../../tableList/Tablelist';
+import { Pagination } from '../../pagination/Pagination';
 
 export const Requestcontainer = ({ requests, onEditRequest }) => {
   const [selected, setSelected] = useState('oldest');
   const [selectedRequests, setSelectedRequests] = useState(null);
   const [search, setSearch] = useState('');
-  const totalRequestCount = requests.length;
+  const [currentContent, setCurrentContent] = useState(0);
 
   useEffect(() => {
     let fullNameCopy = requests.slice().map((req) => {
@@ -76,6 +77,10 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
         setSelectedRequests(approvedRequest);
         break;
     }
+  };
+
+  const handleOnCurrentContent = (index) => {
+    setCurrentContent(() => index);
   };
 
   function dateToSeconds(date) {
@@ -168,6 +173,7 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
             selectedRequests == null ? requests : selectedRequests
           }
           onEditRequest={onEditRequest}
+          currentContent={currentContent}
         />
         <div className="pagination">
           <div className="pagination-status">
@@ -177,8 +183,11 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
               {requests.length} entries
             </p>
           </div>
-          <div className="current-page">
-            <button>
+          <Pagination
+            items={requests}
+            onCurrentContent={handleOnCurrentContent}
+          />
+          {/* <button onClick={handlePrevious}>
               <img
                 width="12"
                 height="12"
@@ -186,21 +195,15 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
                 alt="forward"
               />
             </button>
-            <p className="active-page">1</p>
-            <p className="page-num">2</p>
-            <p className="page-num">3</p>
-            <p className="page-num">4</p>
-            <p className="page-num">...</p>
-            <p className="page-num">{totalRequestCount}</p>
-            <button>
+
+            <button onClick={handleNext}>
               <img
                 width="12"
                 height="12"
                 src="https://img.icons8.com/metro/26/000000/forward.png"
                 alt="forward"
               />
-            </button>
-          </div>
+            </button> */}
         </div>
       </div>
     </div>
