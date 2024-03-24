@@ -13,10 +13,15 @@ export const Dashboard = ({ isOnMobile }) => {
   const [requests, setRequests] = useState([]);
   const [editRequest, setEditRequest] = useState(false);
   const [currentRequest, setCurrentRequest] = useState(null);
+  const [eventApproved, setEventApproved] = useState(false);
 
   const handleOnEditRequest = (request) => {
     setEditRequest((editRequest) => !editRequest);
     setCurrentRequest(request);
+  };
+
+  const handleOnEventApproved = () => {
+    setEventApproved((eventApproved) => !eventApproved);
   };
 
   useEffect(() => {
@@ -26,14 +31,13 @@ export const Dashboard = ({ isOnMobile }) => {
         const data = response.data;
 
         setRequests(data);
-        console.log(data);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchAllRequest();
-  }, []);
+  }, [eventApproved]);
 
   return (
     <div className="dashboard">
@@ -42,6 +46,7 @@ export const Dashboard = ({ isOnMobile }) => {
         <EditRequestContainer
           onEditRequest={handleOnEditRequest}
           currentRequest={currentRequest}
+          onEventApproved={handleOnEventApproved}
         />
       ) : (
         <Requestcontainer

@@ -2,6 +2,7 @@
 
 export const List = ({ request, onEditRequest }) => {
   const fullName = `${request.userData.firstName} ${request.userData.lastName}`;
+
   return (
     <tr
       className="list-content"
@@ -13,7 +14,13 @@ export const List = ({ request, onEditRequest }) => {
       <td>{request.userData.email}</td>
       <td>{request.userData.phoneNumber}</td>
       <td>
-        <span className="pending">Pending</span>
+        <span
+          className={
+            request.status == 'Pending' ? 'pending' : 'approved'
+          }
+        >
+          {request.status}
+        </span>
       </td>
     </tr>
   );

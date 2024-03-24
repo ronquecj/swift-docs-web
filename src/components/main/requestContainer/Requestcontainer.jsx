@@ -49,6 +49,16 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
     .slice()
     .sort((a, b) => a.conCreatedAt - b.conCreatedAt);
 
+  const pendingRequest = convertedCreatedAt
+    .slice()
+    .sort((a, b) => b.conCreatedAt - a.conCreatedAt)
+    .filter((req) => req.status == 'Pending');
+
+  const approvedRequest = convertedCreatedAt
+    .slice()
+    .sort((a, b) => b.conCreatedAt - a.conCreatedAt)
+    .filter((req) => req.status == 'Approved');
+
   const handleSelect = (e) => {
     setSelected(e?.target?.value);
 
@@ -58,6 +68,12 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
         break;
       case 'oldest':
         setSelectedRequests(oldestRequest);
+        break;
+      case 'pending':
+        setSelectedRequests(pendingRequest);
+        break;
+      case 'approved':
+        setSelectedRequests(approvedRequest);
         break;
     }
   };
@@ -102,7 +118,18 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
       <div className="title-form-container">
         <div className="title">
           <h3>All Request</h3>
-          <p>Pending Request</p>
+          {selected == 'newest' && (
+            <p style={{ color: '#cbcbcb' }}>Newest Request</p>
+          )}
+          {selected == 'oldest' && (
+            <p style={{ color: '#cbcbcb' }}>Oldest Request</p>
+          )}
+          {selected == 'pending' && (
+            <p style={{ color: '#f0bf0f' }}>Pending Request</p>
+          )}
+          {selected == 'approved' && (
+            <p style={{ color: '#008767' }}>Approved Request</p>
+          )}
         </div>
         <form action="" className="form-container">
           <div className="search">
@@ -129,6 +156,8 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
             >
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
             </select>
           </div>
         </form>
@@ -142,7 +171,11 @@ export const Requestcontainer = ({ requests, onEditRequest }) => {
         />
         <div className="pagination">
           <div className="pagination-status">
-            <p>Showing data 1 to 8 of {requests.length} entries</p>
+            <p>
+              Showing data {requests.length == 0 ? '0' : '1'} to{' '}
+              {requests.length <= 8 ? requests.length : '8'} of{' '}
+              {requests.length} entries
+            </p>
           </div>
           <div className="current-page">
             <button>

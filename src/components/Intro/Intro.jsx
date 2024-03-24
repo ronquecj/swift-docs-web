@@ -5,6 +5,12 @@ export const Intro = () => {
   return (
     <div className="intro">
       <div className="text-container">
+        <img
+          src="profile-pic.png"
+          alt="san-roque-logo"
+          width={'100px'}
+          style={{ marginBottom: '10px' }}
+        />
         <p className="sd-main-title">Swift Docs</p>
         <p>Manage your files with ease.</p>
         <Link className="intro-button" to="/login">

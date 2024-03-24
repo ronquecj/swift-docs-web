@@ -1,21 +1,41 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react';
 import './EditRequestContainer.css';
-import { patchDocument, PatchType, TextRun } from 'docx';
+
+import axios from '../../../api/axios.js';
+const APPROVE_URL = 'request/approve/';
+
+import {
+  patchDocument,
+  PatchType,
+  TextRun,
+  UnderlineType,
+} from 'docx';
+import { useState } from 'react';
 
 export const EditRequestContainer = ({
   currentRequest,
   onEditRequest,
+  onEventApproved,
 }) => {
-  const [isApproved, setIsApproved] = useState(false);
+  const [btnClicked, setBtnClicked] = useState(false);
   const requestType =
     currentRequest.type == 'Barangay Indigency'
       ? 'INDIGENCY'
       : 'BRANGAY_CLEARANCE';
 
-  const handleOnApproved = () => {
-    setIsApproved((isApproved) => !isApproved);
+  const handleOnApproved = async () => {
+    const id = currentRequest._id;
+    try {
+      const response = await axios.post(`${APPROVE_URL}${id}`);
+
+      if (response.status === 200) {
+        onEventApproved();
+        setBtnClicked((btnClicked) => !btnClicked);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const downloadFile = async () => {
@@ -38,22 +58,53 @@ export const EditRequestContainer = ({
           NAME: {
             type: PatchType.PARAGRAPH,
             children: [
-              new TextRun(
-                `${currentRequest.userData.firstName} ${currentRequest.userData.lastName}`
-              ),
+              new TextRun({
+                text: `${currentRequest.userData.firstName} ${currentRequest.userData.lastName}`,
+                size: 27,
+                bold: true,
+                underline: {
+                  type: UnderlineType.SINGLE,
+                  color: '000000',
+                },
+              }),
             ],
           },
-          PURPOSE: {
+          PURP: {
             type: PatchType.PARAGRAPH,
-            children: [new TextRun(currentRequest.purpose)],
+            children: [
+              new TextRun({
+                text: currentRequest.purpose,
+                size: 27,
+                bold: true,
+                underline: {
+                  type: UnderlineType.SINGLE,
+                  color: '000000',
+                },
+              }),
+            ],
           },
           DAY: {
-            type: PatchType.PARAGRAPH,
-            children: [new TextRun(day)],
+            type: PatchType.ParagraphChild,
+            children: [
+              new TextRun({
+                text: day,
+                size: 27,
+              }),
+            ],
           },
           CURRENT_DATE: {
             type: PatchType.PARAGRAPH,
-            children: [new TextRun(monthYear)],
+            children: [
+              new TextRun({
+                text: monthYear,
+                size: 27,
+                bold: true,
+                underline: {
+                  type: UnderlineType.SINGLE,
+                  color: '000000',
+                },
+              }),
+            ],
           },
         },
       });
@@ -77,9 +128,107 @@ export const EditRequestContainer = ({
     }
   };
 
+  // const printFile = async () => {
+  //   const date = new Date().toDateString();
+  //   const day = date.split(' ')[2];
+  //   const monthYear = [date.split(' ')[1], date.split(' ')[3]].join(
+  //     ' '
+  //   );
+
+  //   try {
+  //     const response = await fetch(`${requestType}.docx`);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to load file');
+  //     }
+
+  //     const fileBuffer = await response.arrayBuffer();
+
+  //     const doc = await patchDocument(fileBuffer, {
+  //       patches: {
+  //         NAME: {
+  //           type: PatchType.PARAGRAPH,
+  //           children: [
+  //             new TextRun({
+  //               text: `${currentRequest.userData.firstName} ${currentRequest.userData.lastName}`,
+  //               size: 27,
+  //               bold: true,
+  //               underline: {
+  //                 type: UnderlineType.SINGLE,
+  //                 color: '000000',
+  //               },
+  //             }),
+  //           ],
+  //         },
+  //         PURP: {
+  //           type: PatchType.PARAGRAPH,
+  //           children: [
+  //             new TextRun({
+  //               text: currentRequest.purpose,
+  //               size: 27,
+  //               bold: true,
+  //               underline: {
+  //                 type: UnderlineType.SINGLE,
+  //                 color: '000000',
+  //               },
+  //             }),
+  //           ],
+  //         },
+  //         DAY: {
+  //           type: PatchType.ParagraphChild,
+  //           children: [
+  //             new TextRun({
+  //               text: day,
+  //               size: 27,
+  //             }),
+  //           ],
+  //         },
+  //         CURRENT_DATE: {
+  //           type: PatchType.PARAGRAPH,
+  //           children: [
+  //             new TextRun({
+  //               text: monthYear,
+  //               size: 27,
+  //               bold: true,
+  //               underline: {
+  //                 type: UnderlineType.SINGLE,
+  //                 color: '000000',
+  //               },
+  //             }),
+  //           ],
+  //         },
+  //       },
+  //     });
+
+  //     const blob = new Blob([doc], {
+  //       type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  //     });
+
+  //     const url = URL.createObjectURL(blob);
+  //     const newWindow = window.open(url, '_blank');
+
+  //     if (newWindow) {
+  //       newWindow.onload = () => {
+  //         newWindow.print();
+  //         newWindow.onafterprint = () => {
+  //           newWindow.close();
+  //           URL.revokeObjectURL(url);
+  //         };
+  //       };
+  //     } else {
+  //       throw new Error('Failed to open new window');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
   const handleOnClick = () => {
     downloadFile();
   };
+
+  // const handlePrint = () => {
+  //   printFile();
+  // };
 
   return (
     <div className="edit-container">
@@ -87,7 +236,12 @@ export const EditRequestContainer = ({
         <div className="title-form-container">
           <div className="title">
             <h3>Edit Request</h3>
-            <p>Pending Request</p>
+            {currentRequest.status == 'Pending' && (
+              <p>Pending Request</p>
+            )}
+            {currentRequest.status == 'Approved' && (
+              <p style={{ color: '#008767' }}>Approved Request</p>
+            )}
           </div>
 
           <img
@@ -117,18 +271,19 @@ export const EditRequestContainer = ({
             </p>
           </div>
           <div className="buttons">
-            {isApproved ? (
+            {currentRequest.status == 'Approved' || btnClicked ? (
               <>
-                {' '}
                 <button className="download" onClick={handleOnClick}>
                   Download
                 </button>{' '}
-                <button className="print">Print</button>
+                {/* <button className="print" onClick={handlePrint}>
+                  Print
+                </button> */}
               </>
             ) : (
               <>
                 <button disabled>Download</button>
-                <button disabled>Print</button>
+                {/* <button disabled>Print</button> */}
               </>
             )}
           </div>
@@ -173,7 +328,15 @@ export const EditRequestContainer = ({
               <p>{currentRequest.userData.phoneNumber}</p>
             </li>
           </ul>
-          <button onClick={handleOnApproved}>Approve</button>
+          {currentRequest.status == 'Approved' || btnClicked ? (
+            <button className="dis" disabled>
+              Approved
+            </button>
+          ) : (
+            <button className="app-btn" onClick={handleOnApproved}>
+              Approve
+            </button>
+          )}
         </div>
       </div>
     </div>

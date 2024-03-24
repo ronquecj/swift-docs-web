@@ -1,5 +1,3 @@
-.edit-container {}
-
 .edit-head-container {
     background-color: white;
     padding: 30px 35px;
@@ -156,7 +154,7 @@
 
 }
 
-.details button {
+.app-btn {
     width: 100%;
     padding: 15px;
     border-radius: 10px;
@@ -166,11 +164,17 @@
     transition: all .25s;
 }
 
-.details button:hover {
+.app-btn:hover {
     cursor: pointer;
     background-color: #6a46eb;
 }
 
-.details button:active {
+.app-btn:active {
     background-color: #8c6ef7;
+}
+
+.dis {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
 }

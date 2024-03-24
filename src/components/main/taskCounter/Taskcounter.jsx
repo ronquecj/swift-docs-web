@@ -53,7 +53,7 @@ export const Taskcounter = ({ requests, isOnMobile }) => {
           </div>
         )}
         <div className="counter-container">
-          <p>Completed Task</p>
+          <p>Completed Request</p>
           <span className="count-number">{totalCompletedTasks}</span>
         </div>
       </div>
@@ -73,7 +73,7 @@ export const Taskcounter = ({ requests, isOnMobile }) => {
           </div>
         )}
         <div className="counter-container">
-          <p>Pending Task</p>
+          <p>Pending Request</p>
           <span className="count-number">{totalPendingRequests}</span>
         </div>
       </div>

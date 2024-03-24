@@ -1,4 +1,5 @@
 import './Navbar.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -9,6 +10,11 @@ export const Navbar = () => {
       20,
       currentUser.user._id.split('').length - 1
     );
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+  };
   return (
     <nav>
       <div className="sd">
@@ -61,6 +67,8 @@ export const Navbar = () => {
               height="25"
               src="https://img.icons8.com/fluency-systems-filled/48/exit.png"
               alt="exit"
+              onClick={handleLogout}
+              className='logout'
             />
           </div>
         </div>
